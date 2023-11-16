@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('areas', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('shortname');
+            $table->char('id_curso_moodle');
+            $table->double('nota')->nullable();
+            $table->unsignedBigIntegern('grado_id');
             $table->timestamps();
+
+            $table->foreign('grado_id')->references('id')->on('grados')->onDelete('cascade');
         });
     }
 

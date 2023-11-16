@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('cohortes', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->char('id_category_moodle');
             $table->timestamps();
         });
     }

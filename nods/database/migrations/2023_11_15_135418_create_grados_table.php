@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('grados', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->char('id_category_moodle');
             $table->timestamps();
+
+            $table->foreign('periodo_id')->references('id')->on('periodos')->onDelete('cascade');
         });
     }
 
