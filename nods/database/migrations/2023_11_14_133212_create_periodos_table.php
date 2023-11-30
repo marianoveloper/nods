@@ -11,16 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('areas', function (Blueprint $table) {
+        Schema::create('periodos', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('shortname');
-            $table->char('id_curso_moodle');
-            $table->double('nota')->nullable();
-            $table->unsignedBigInteger('grado_id');
+            $table->string('id_category_moodle');
             $table->timestamps();
-
-            $table->foreign('grado_id')->references('id')->on('grados')->onDelete('cascade');
         });
     }
 
@@ -29,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('areas');
+        Schema::dropIfExists('periodos');
     }
 };

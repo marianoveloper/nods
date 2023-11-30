@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->char('id_category_moodle');
+            $table->unsignedBigInteger('periodo_id');
             $table->timestamps();
 
             $table->foreign('periodo_id')->references('id')->on('periodos')->onDelete('cascade');

@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->foreign('grado_id')->references('id')->on('grados')->ondelete('cascade');
 
-            $table->foreign('grado_id')->references('id')->on('users')->ondelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->ondelete('cascade');
             $table->timestamps();
         });
     }
