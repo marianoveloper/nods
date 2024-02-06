@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('shortname');
-            $table->char('id_curso_moodle');
+            $table->string('id_curso_moodle');
             $table->double('nota')->nullable();
             $table->unsignedBigInteger('grado_id');
             $table->timestamps();
