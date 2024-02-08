@@ -56,7 +56,7 @@ class UserController extends Controller
 
         $usuario=Http::get($serverurl);
 
-
+dd($usuario);
         foreach(json_decode($usuario) as $nm_use2){
 
         }
@@ -65,10 +65,9 @@ class UserController extends Controller
         $n_use=new User();
         $n_use->name=$request->input('name');
         $n_use->ap_paterno=$request->input('ap_paterno');
-
         $n_use->email=$request->input('email');
         $n_use->dni=$request->input('dni');
-        //$n_use->id_user_moodle=$nm_use2->id;
+        $n_use->id_user_moodle=$nm_use2->id;
         $n_use->password=bcrypt($request->input('input'));
         $n_use->save();
 
@@ -118,5 +117,52 @@ class UserController extends Controller
         $usuario=Http::get($serverurl);
 
         return view('users.index', compact('usuario'));
+    }
+
+    public function consultarmatricula(Grado $grado){
+        //consultar usuarios que no estan matriculados en el curso
+        $users=User::WhereNotExists(function ($query) use($grado){
+            $query->select()
+            ->from('grado_user')
+            ->whereColumn('grado_user.user_id','users_id')
+            ->where('grado_user.grado_id',$grado->id);
+        })->get();
+       return view('grado.consultarmatricula',compact('grado','users'));
+    }
+
+    public function matricular(Request $request, Grado $grado){
+
+        $user=User::find($request->input('user_id'));
+
+        //matricular en el sistema
+        $grado->users()->attach($user->id);
+        $functionname= 'enrol_manual_enrol_users';
+        foreach($grado->areas as $area){
+
+            $serverurl= $this->domainname . '/webservice/rest/server.php'
+            . '?wstoken='. $this->token
+            . '&wsfunction='.$functionname
+            .'&moodlewsrestformat=json&enrolments[0][roleid]=5&enrolments[0][userid]='.$user->id_user_moodle
+            .'&enrolments[0][courseid]='.$area->id_course_moodle;
+            $usuario=Http::get($serverurl);
+        }
+
+
+
+
+        return redirect()->route('users.index')->with('success', 'Usuario matriculado exitosamente');
+    }
+
+    public function desmatricular(Grado $grado, User $user){
+
+        $functionname= 'enrol_manual_unenrol_users';
+        $serverurl= $this->domainname . '/webservice/rest/server.php'
+        . '?wstoken='. $this->token
+        . '&wsfunction='.$functionname
+        .'&moodlewsrestformat=json&enrolments[0][roleid]=5&enrolments[0][userid]='.$user->id
+        .'&enrolments[0][courseid]='.$grado->id_curso;
+        $usuario=Http::get($serverurl);
+
+        return redirect()->route('users.index')->with('success', 'Usuario desmatriculado exitosamente');
     }
 }
