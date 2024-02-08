@@ -321,12 +321,12 @@ return [
         ['header' => 'Administracion'],
         [
             'text' => 'Usuarios',
-            'url'  => 'users.index',
+            'url'  => 'users',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => 'Plantillas',
-            'url'  => 'plantilla.index',
+            'url'  => 'plantilla',
             'icon' => 'fas fa-fw fa-lock',
         ],
 

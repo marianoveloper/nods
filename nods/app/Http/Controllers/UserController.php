@@ -11,7 +11,7 @@ class UserController extends Controller
 
     private $token='27a3a54d2f1a458588a5c431381dd9e0';
     private $domainname='https://pre-virtual.uccuyo.edu.ar';
-
+    private $pass='Passwor*123';
     /**
      * Display a listing of the resource.
      */
@@ -45,29 +45,31 @@ class UserController extends Controller
         //crear usuario moodle
 
         $functionname= 'core_user_create_users';
+
         $serverurl= $this->domainname . '/webservice/rest/server.php'
         . '?wstoken='. $this->token
         . '&wsfunction='.$functionname
         .'&moodlewsrestformat=json&users[0][username]='.$request->input('dni')
-        .'&users[0][password]='.$request->input('dni')
+        .'&users[0][password]='. $this->pass
         .'&users[0][firstname]='.$request->input('name')
         .'&users[0][lastname]='.$request->input('ap_paterno')
-        .'&users[0][email]='.$request->input('email');
-
+        .'&users[0][email]='.$request->input('email')
+        .'&users[0][idnumber]='.$request->input('dni')
+        .'&users[0][auth]='.'manual'
+        .'&users[0][lang]='.'es';
         $usuario=Http::get($serverurl);
-
-dd($usuario);
-        foreach(json_decode($usuario) as $nm_use2){
+//dd($usuario);
+        foreach(json_decode($usuario) as $usu){
 
         }
-
+dd($usu);
         //crear el usuario en la base de datos
         $n_use=new User();
         $n_use->name=$request->input('name');
         $n_use->ap_paterno=$request->input('ap_paterno');
         $n_use->email=$request->input('email');
         $n_use->dni=$request->input('dni');
-        $n_use->id_user_moodle=$nm_use2->id;
+        $n_use->id_user_moodle=$usu->id;
         $n_use->password=bcrypt($request->input('input'));
         $n_use->save();
 
@@ -115,8 +117,8 @@ dd($usuario);
         . '&wsfunction='.$functionname
         .'&moodlewsrestformat=json&criteria[0][key]=username&criteria[0][value]='.$username;
         $usuario=Http::get($serverurl);
-
-        return view('users.index', compact('usuario'));
+//dd($usuario);
+        return view('plantilla.index', compact('usuario'));
     }
 
     public function consultarmatricula(Grado $grado){
