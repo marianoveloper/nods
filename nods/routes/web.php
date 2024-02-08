@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlantillaController;
 
 /*
@@ -19,6 +20,9 @@ Route::get('/', function () {
 });
 
 Route::resource('plantilla',PlantillaController::class)->names('plantilla');
+Route::resource('users',UserController::class)->names('users');
+Route::post('users/consulta', [UserController::class, 'consulta'])->name('users.consulta');
+
 
 Route::middleware([
     'auth:sanctum',
