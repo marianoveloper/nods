@@ -11,7 +11,7 @@ class Grado extends Model
 {
     use HasFactory;
 
-    public function period(){
+    public function periodo(){
 
         return $this->belongsTo(Periodo::class);
     }

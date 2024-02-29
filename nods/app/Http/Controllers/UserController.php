@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Grado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
 
-    private $token='27a3a54d2f1a458588a5c431381dd9e0';
+    private $token='37192c673d94f5d041a2ce9619202686';
     private $domainname='https://pre-virtual.uccuyo.edu.ar';
     private $pass='Passwor*123';
     /**
@@ -62,7 +63,7 @@ class UserController extends Controller
         foreach(json_decode($usuario) as $usu){
 
         }
-dd($usu);
+
         //crear el usuario en la base de datos
         $n_use=new User();
         $n_use->name=$request->input('name');
@@ -152,11 +153,11 @@ dd($usu);
 
 
 
-        return redirect()->route('users.index')->with('success', 'Usuario matriculado exitosamente');
+        return redirect()->route('grado.comsultarmatricula',$grado->id)->with('success', 'Usuario matriculado exitosamente');
     }
 
     public function desmatricular(Grado $grado, User $user){
-
+        $user->grados()->detach($grado->id);
         $functionname= 'enrol_manual_unenrol_users';
         $serverurl= $this->domainname . '/webservice/rest/server.php'
         . '?wstoken='. $this->token
@@ -165,6 +166,6 @@ dd($usu);
         .'&enrolments[0][courseid]='.$grado->id_curso;
         $usuario=Http::get($serverurl);
 
-        return redirect()->route('users.index')->with('success', 'Usuario desmatriculado exitosamente');
+        return redirect()->route('grado.comsultarmatricula',$grado->id)->with('success', 'Usuario desmatriculado exitosamente');
     }
 }

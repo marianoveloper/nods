@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container">
-        <form action="{{route('plantilla.store')}}" method="POST">
+        <form action="{{route('periodos.store')}}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="">Nombre del Periodo</label>
@@ -17,7 +17,7 @@
 
 
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <a href="{{ route('plantilla.index') }}" class="btn btn-info">Regresar</a>
+            <a href="{{ route('periodos.index') }}" class="btn btn-info">Regresar</a>
 
         </form>
 @stop

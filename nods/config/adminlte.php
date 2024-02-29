@@ -329,6 +329,12 @@ return [
             'url'  => 'plantilla',
             'icon' => 'fas fa-fw fa-lock',
         ],
+        [
+            'text' => 'Periodos',
+            'url'  => 'periodos',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
+
 
     ],
 
@@ -484,5 +490,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];

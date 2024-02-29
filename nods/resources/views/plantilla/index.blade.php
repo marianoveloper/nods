@@ -1,28 +1,57 @@
+
 @extends('adminlte::page')
 
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Periodos</h1>
 @stop
 
 @section('content')
-<div class="card-body">
-    <form action="{{route('users.consulta')}}" method="POST">
-        @csrf
-        <div class="mb-3">
-            <label for="">Nombre del Alumno</label>
-            <input id="name" name="username" type="text" class="form-control">
-        </div>
+@if(session('info'))
+<div class="alert alert-success">
+    <strong>{{session('info')}}</strong>
+</div>
+@endif
 
-        <button type="submit" class="btn btn-primary">Consultar</button>
+<!-- Boton para crear un nuevo usuario -->
+<div class="container">
+<a href="{{route('plantilla.create')}}" class="btn btn-primary">Crear Plantilla</a>
+</div>
+<div class="container mt-3">
+<table class="table">
+<thead class="table table-dark">
+ <tr>
+     <th>Nombre Plantilla</th>
+     <th>Curso</th>
+     <th>Acciones</th>
+ </tr>
+</thead>
+<tbody>
+ @foreach ($plantillas as $plantilla)
+     <tr>
 
-    </div>
-    @isset($usuario)
-    {{$usuario}}
+         <td>{{$plantilla->name}}</td>
+
+        <td>{{$plantilla->cursos->count()}}</td>
+
+         <td>
+
+            <form action="#" method="POST" class="d-inline">
+                 @method('DELETE')
+                 @csrf
+                 <a href="{{route('cursos.crearcurso',$plantilla->id)}}" class="btn btn-success">Crear curso</a>
+                 <!--<button class="btn btn-danger" type="submit">Eliminar</button>-->
+             </form>
+         </td>
+     </tr>
+ @endforeach
+</tbody>
+</div>
 
 
-    @endisset
+
+
 @stop
 
 @section('css')

@@ -12,7 +12,9 @@ class PlantillaController extends Controller
      */
     public function index()
     {
-       return view('plantilla.index');
+        $plantillas = Plantilla::all();
+        return view('plantilla.index', compact('plantillas'));
+
     }
 
     /**
@@ -36,7 +38,7 @@ class PlantillaController extends Controller
         //Guardar en la BD
 
         $n_plantilla= new Plantilla();
-        $n_plantilla->nombre = $request->nombre;
+        $n_plantilla->name = $request->name;
         $n_plantilla->save();
 
         return redirect()->route('plantilla.index');
@@ -70,7 +72,7 @@ class PlantillaController extends Controller
 
         //Guardar en la BD
 
-        $plantilla->nombre = $request->nombre;
+        $plantilla->name = $request->name;
         $plantilla->save();
 
         return redirect()->route('plantilla.index');
