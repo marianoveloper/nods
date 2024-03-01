@@ -169,11 +169,11 @@ foreach(json_decode($categorias) as $cat){
             . '?wstoken='. $this->token
             . '&wsfunction='.$functionname2
             .'&moodlewsrestformat=json'
-            .'&enrolments[0][roleid]=5'
+            .'&enrolments[0][roleid]=10'
             .'&enrolments[0][userid]='.$user->id_user_moodle
             .'&enrolments[0][courseid]='.$area->id_curso_moodle
             . '&enrolments[0][timestart]='.time()+86400
-            . '&enrolments[0][timeend]='.time()+86400*365;
+            . '&enrolments[0][timeend]=0';
             $usuario=Http::get($consulta);
             if($usuario->status()!=200){
                 return redirect()->route('grado.consultarmatricula',$grado->id)->with('error', 'Error al matricular usuario en el curso');
