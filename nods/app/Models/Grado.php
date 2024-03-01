@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Area;
+use App\Models\User;
+use App\Models\Curso;
 use App\Models\Periodo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,6 +17,7 @@ class Grado extends Model
 
         return $this->belongsTo(Periodo::class);
     }
+    
 
     public function areas(){
 

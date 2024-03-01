@@ -156,26 +156,33 @@ foreach(json_decode($categorias) as $cat){
     }
 
     public function matricular(Request $request, Grado $grado){
-
+       
         $user=User::find($request->input('user_id'));
-
+        
         //matricular en el sistema
         $grado->users()->attach($user->id);
-        $functionname= 'enrol_manual_enrol_users';
+        $functionname2= 'enrol_manual_enrol_users';
+     
         foreach($grado->areas as $area){
-
-            $serverurl= $this->domainname . '/webservice/rest/server.php'
+           
+            $consulta= $this->domainname . '/webservice/rest/server.php'
             . '?wstoken='. $this->token
-            . '&wsfunction='.$functionname
-            .'&moodlewsrestformat=json&enrolments[0][roleid]=5&enrolments[0][userid]='.$user->id_user_moodle
-            .'&enrolments[0][courseid]='.$area->id_course_moodle;
-            $usuario=Http::get($serverurl);
+            . '&wsfunction='.$functionname2
+            .'&moodlewsrestformat=json&enrolments[0][roleid]=5'
+            .'&enrolments[0][userid]='.$user->id_user_moodle
+            .'&enrolments[0][courseid]='.$area->id_curso_moodle;
+            $usuario=Http::get($consulta);
+            if($usuario->status()!=200){
+                return redirect()->route('grado.consultarmatricula',$grado->id)->with('error', 'Error al matricular usuario en el curso');
+            }else{
+                $usuario=Http::get($consulta);
+            }
         }
 
 
 
 
-        return redirect()->route('grado.consultarmatricula',$grado->id)->with('success', 'Usuario matriculado exitosamente');
+        return redirect()->route('grado.consultarmatricula',$grado->id)->with('info', 'Usuario matriculado exitosamente');
     }
 
     public function desmatricular(Grado $grado, User $user){

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Grado;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Area extends Model
 {
@@ -13,6 +14,8 @@ class Area extends Model
 
         return $this->belongsTo(Grado::class);
     }
+
+    
 
     //Relación de uno a muchos inversa (de los alumnos hacia las areas)
 
