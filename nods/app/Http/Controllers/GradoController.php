@@ -33,7 +33,7 @@ class GradoController extends Controller
     public function crearGrado(Periodo $periodo)
     {
         $plantillas=Plantilla::all();
-        
+
         return view('grados.create', compact('periodo','plantillas'));
     }
 
@@ -46,7 +46,7 @@ class GradoController extends Controller
     }
     public function store2(Request $request,Periodo $periodo)
     {
-        
+
         $request->validate([
             'name' => 'required',
             'plantilla_id'=>'required',
@@ -55,7 +55,7 @@ class GradoController extends Controller
 
         $plantilla=Plantilla::find($request->input('plantilla_id'));
 
-        
+
 //crear usuario moodle
 
 $functionname= 'core_course_create_categories';
@@ -82,7 +82,7 @@ foreach(json_decode($categorias) as $cat){
         $functionname3= 'core_course_create_courses';
         //crear curso en moodle
         foreach($plantilla->cursos as $curso){
-           
+
 
             $serverurl3= $this->domainname . '/webservice/rest/server.php'
             . '?wstoken='. $this->token
@@ -156,33 +156,37 @@ foreach(json_decode($categorias) as $cat){
     }
 
     public function matricular(Request $request, Grado $grado){
-       
+
         $user=User::find($request->input('user_id'));
-        
+
         //matricular en el sistema
         $grado->users()->attach($user->id);
         $functionname2= 'enrol_manual_enrol_users';
-     
+
         foreach($grado->areas as $area){
-           
+
             $consulta= $this->domainname . '/webservice/rest/server.php'
             . '?wstoken='. $this->token
             . '&wsfunction='.$functionname2
-            .'&moodlewsrestformat=json&enrolments[0][roleid]=5'
+            .'&moodlewsrestformat=json'
+            .'&enrolments[0][roleid]=5'
             .'&enrolments[0][userid]='.$user->id_user_moodle
-            .'&enrolments[0][courseid]='.$area->id_curso_moodle;
+            .'&enrolments[0][courseid]='.$area->id_curso_moodle
+            . '&enrolments[0][timestart]='.time()+86400
+            . '&enrolments[0][timeend]='.time()+86400*365;
             $usuario=Http::get($consulta);
             if($usuario->status()!=200){
                 return redirect()->route('grado.consultarmatricula',$grado->id)->with('error', 'Error al matricular usuario en el curso');
             }else{
                 $usuario=Http::get($consulta);
+                return redirect()->route('grado.consultarmatricula',$grado->id)->with('info', 'Usuario matriculado exitosamente');
             }
         }
 
 
 
 
-        return redirect()->route('grado.consultarmatricula',$grado->id)->with('info', 'Usuario matriculado exitosamente');
+
     }
 
     public function desmatricular(Grado $grado, User $user){
