@@ -27,7 +27,7 @@
         </div>
         <div class="mb-3">
             <button type="submit" class="btn btn-primary">Matricular</button>
-            <a href="{{ route('periodo.consultargrados',$grado->id) }}" class="btn btn-info">Regresar</a>
+            <a href="{{ route('periodos.index') }}" class="btn btn-info">Regresar</a>
         </div>
        
     </form>

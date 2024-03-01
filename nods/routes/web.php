@@ -19,10 +19,8 @@ use App\Http\Controllers\PlantillaController;
 |
 */
 
-Route::get('/', function () {
-    return view('plantilla.index');
-});
 
+Route::get('/', [UserController::class, 'index']);
 Route::resource('plantilla',PlantillaController::class)->names('plantilla');
 Route::resource('cursos',CursoController::class)->names('cursos');
 Route::get('cursos/{plantilla}/crearcurso', [CursoController::class, 'crearcurso'])->name('cursos.crearcurso');
