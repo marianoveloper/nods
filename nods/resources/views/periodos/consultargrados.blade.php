@@ -18,7 +18,7 @@
     <table class="table">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">Nombre del Grado</th>
+            <th scope="col">Nombre del Curso</th>
             <th scope="col">Estudiantes</th>
             <th scope="col">Acciones</th>
           </tr>

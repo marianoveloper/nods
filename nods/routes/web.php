@@ -20,7 +20,7 @@ use App\Http\Controllers\PlantillaController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('plantilla.index');
 });
 
 Route::resource('plantilla',PlantillaController::class)->names('plantilla');

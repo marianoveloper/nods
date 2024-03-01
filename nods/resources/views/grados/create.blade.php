@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Nuevo Periodo</h1>
+    <h1>Nuevo cursos</h1>
 @stop
 
 @section('content')
@@ -11,11 +11,11 @@
         <form action="{{route('grado.store2',$periodo->id)}}" method="POST">
             @csrf
             <div class="mb-3">
-                <label for="">Nombre del Grado</label>
+                <label for="">Nombre del Curso</label>
                 <input id="name" name="name" type="text" class="form-control">
             </div>
             <div class="mb-3">
-                <label for="">Elegir Plantilla</label>
+                <label for="">Elegir Categoria</label>
               <select name="plantilla_id" id="plantilla_id" class="form-control">
                @foreach($plantillas as $plantilla){
                   <option value={{$plantilla->id}}>{{$plantilla->name}}</option>

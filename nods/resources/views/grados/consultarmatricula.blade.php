@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Consultar </h1>
+    <h1>Consultar Estudiantes</h1>
 @stop
 
 @section('content')
@@ -17,7 +17,7 @@
     <form action="{{route('grado.matricular',$grado->id)}}" method="POST">
         @csrf
         <div class="mb-3">
-            <label for="">Elegir usuario</label>
+            <label for="">Elegir Estudiantes</label>
            <select name="user_id" id="user_id" class="form-control">
             @foreach($users as $user){
                <option value={{$user->id}}>{{$user->name}}</option>

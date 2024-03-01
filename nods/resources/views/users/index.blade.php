@@ -15,7 +15,7 @@
 
 <!-- Boton para crear un nuevo usuario -->
 <div class="container">
-    <a href="{{route('users.create')}}" class="btn btn-primary">Crear Usuario</a>
+    <a href="{{route('users.create')}}" class="btn btn-primary">Crear Alumno</a>
 </div>
 <div class="container mt-3">
 <table class="table">
@@ -36,12 +36,8 @@
                 <td>{{$user->dni}}</td>
 
                 <td>
-                    <a href="{{route('users.edit', $user->id)}}" class="btn btn-warning">Editar</a>
-                    <form action="{{route('users.destroy', $user->id)}}" method="POST" class="d-inline">
-                        @method('DELETE')
-                        @csrf
-                        <button class="btn btn-danger" type="submit">Eliminar</button>
-                    </form>
+                    <a href="#" class="btn btn-warning">Editar</a>
+                    
                 </td>
             </tr>
         @endforeach

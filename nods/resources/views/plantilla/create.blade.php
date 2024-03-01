@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Nuevo Periodo</h1>
+    <h1>Nueva Subcategoria</h1>
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
         <form action="{{route('plantilla.store')}}" method="POST">
             @csrf
             <div class="mb-3">
-                <label for="">Nombre del Periodo</label>
+                <label for="">Nombre de la Subcategoria</label>
                 <input id="name" name="name" type="text" class="form-control">
             </div>
 

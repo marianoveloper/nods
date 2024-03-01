@@ -4,7 +4,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Periodos</h1>
+    <h1>categoria</h1>
 @stop
 
 @section('content')
@@ -16,7 +16,7 @@
 
 <!-- Boton para crear un nuevo usuario -->
 <div class="container">
-<a href="{{route('plantilla.create')}}" class="btn btn-primary">Crear Plantilla</a>
+<a href="{{route('plantilla.create')}}" class="btn btn-primary">Crear Categoria</a>
 </div>
 <div class="container mt-3">
 <table class="table">
