@@ -146,7 +146,7 @@ foreach(json_decode($categorias) as $cat){
 
     public function consultarmatricula(Grado $grado){
         //consultar usuarios que no estan matriculados en el curso
-        $users=User::WhereNotExists(function ($query) use($grado){
+        $users=User::WhereExists(function ($query) use($grado){
             $query->select()
             ->from('grado_user')
             ->whereColumn('grado_user.user_id','user_id')
